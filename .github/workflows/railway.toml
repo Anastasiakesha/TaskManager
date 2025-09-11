@@ -1,0 +1,4 @@
+[build]
+root = "backend"
+installCommand = "npm install"
+startCommand = "npm start"
