@@ -19,15 +19,29 @@ jobs:
         with:
           node-version: 20
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            backend/node_modules
+            frontend/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-
+
       - name: Install dependencies
         run: |
           cd backend && npm install
-          cd frontend && npm install
+          cd ../frontend && npm install
+          cd ..
           npm install --save-dev concurrently cypress wait-on
 
+      - name: Build frontend
+        run: cd frontend && npm run build
+
       - name: Start backend and frontend
-        run: npm run start:dev &
-      
+        run: npx concurrently "cd backend && npm run start" "cd frontend && npm run start" &
+
       - name: Wait for servers
         run: |
           npx wait-on http://localhost:3000
