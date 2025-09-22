@@ -5,7 +5,7 @@
     "start-server-and-test": "^2.1.2"
   },
   "scripts": {
-    "start:dev": "concurrently \"npm:backend\" \"npm:frontend\"",
+    "start:dev": "npx concurrently \"npm:backend\" \"npm:frontend\"",
     "backend": "cd backend && node server.js",
     "frontend": "cd frontend && npm start",
     "cypress:open": "cypress open",
