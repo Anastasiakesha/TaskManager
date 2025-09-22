@@ -1,7 +1,8 @@
 {
   "devDependencies": {
     "concurrently": "^9.2.1",
-    "cypress": "^15.2.0"
+    "cypress": "^15.2.0",
+    "start-server-and-test": "^2.1.2"
   },
   "scripts": {
     "start:dev": "concurrently \"npm:backend\" \"npm:frontend\"",
