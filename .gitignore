@@ -18,7 +18,7 @@ frontend/build/
 
 .DS_Store
 
-frontend/cypress/screenshots/
+cypress/screenshots/tasks.cy.js/
 
 frontend/.pnp
 frontend/.pnp.js
