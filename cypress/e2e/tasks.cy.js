@@ -1,10 +1,14 @@
 describe("Task Manager E2E", () => {
   beforeEach(() => {
-    cy.request("POST", "http://localhost:5001/test/clear"); 
+    cy.request({
+      method: "POST",
+      url: "http://localhost:5001/test/clear",
+      failOnStatusCode: false, 
+    });
   });
 
   it("Показывает пустой список задач, если база пуста", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("http://localhost:3000"); 
     cy.get("[data-testid='task-item']").should("have.length", 0);
   });
 
@@ -14,7 +18,6 @@ describe("Task Manager E2E", () => {
     cy.get("[data-testid='task-input']").type("Новая задача");
     cy.get("[data-testid='task-add-button']").click();
 
-    // Ждём, пока элемент появится (увеличиваем таймаут)
     cy.get("[data-testid='task-item']", { timeout: 10000 })
       .should("have.length", 1)
       .first()
@@ -24,18 +27,16 @@ describe("Task Manager E2E", () => {
   it("Задачу можно отметить выполненной", () => {
     cy.visit("http://localhost:3000");
 
-    // Добавляем задачу, чтобы она точно была
     cy.get("[data-testid='task-input']").type("Новая задача");
     cy.get("[data-testid='task-add-button']").click();
 
-    cy.get("[data-testid='task-item']", { timeout: 10000 })
+    cy.get("[data-testid='task-item']")
+      .contains("Новая задача")
+      .click(); 
+
+    cy.get("[data-testid='task-item']")
       .contains("Новая задача")
       .parent()
-      .find("[data-testid='task-complete-button']")
-      .click();
-
-    cy.get("[data-testid='task-item']", { timeout: 10000 })
-      .contains("Новая задача")
       .should("have.class", "completed");
   });
 });

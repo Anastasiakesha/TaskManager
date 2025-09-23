@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getTasks, addTask, updateTask, deleteTask } from "./api";
+import "./App.css"; // подключаем твой CSS файл
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -33,8 +34,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-6">📋 Список задач</h1>
+    <div className="App min-h-screen flex flex-col items-center bg-gray-100 p-6">
+      <h1 className="App-header text-3xl font-bold mb-6">📋 Список задач</h1>
 
       <form onSubmit={handleAddTask} className="flex mb-4">
         <input
@@ -46,7 +47,8 @@ function App() {
           data-testid="task-input"
         />
         <button
-          className="bg-blue-500 text-white px-4 rounded-r-md"
+          type="submit"
+          className="bg-blue-500 text-white px-4 rounded-r-md hover:bg-blue-700"
           data-testid="task-add-button"
         >
           Добавить
@@ -58,15 +60,15 @@ function App() {
           <li
             key={task.id}
             data-testid="task-item"
-            className="flex justify-between items-center bg-white shadow p-2 mb-2 rounded-md"
+            className={`flex justify-between items-center bg-white shadow p-2 mb-2 rounded-md ${task.completed ? "completed" : ""}`}
           >
-            <span
-              onClick={() => handleToggleTask(task.id, task.completed)}
-              className={`cursor-pointer ${task.completed ? "line-through text-gray-500" : ""}`}
-              data-testid="task-complete-button"
-            >
-              {task.title}
-            </span>
+          <span
+            onClick={() => handleToggleTask(task.id, task.completed)}
+            className={`cursor-pointer ${task.completed ? "completed" : ""}`}
+            data-testid="task-complete-button"
+          >
+            {task.title}
+          </span>
             <button
               onClick={() => handleDeleteTask(task.id)}
               className="text-red-500 hover:text-red-700"
