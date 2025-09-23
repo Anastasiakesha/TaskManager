@@ -34,18 +34,11 @@ jobs:
           cd backend && npm install
           cd ../frontend && npm install
           cd ..
-          npm install --save-dev concurrently cypress wait-on
+          npm install --save-dev cypress concurrently start-server-and-test
 
       - name: Build frontend
         run: cd frontend && npm run build
 
-      - name: Start backend and frontend
-        run: npx concurrently "cd backend && npm run start" "cd frontend && npm run start" &
-
-      - name: Wait for servers
+      - name: Start servers & run Cypress
         run: |
-          npx wait-on http://localhost:3000
-          npx wait-on http://localhost:5000
-
-      - name: Run Cypress tests
-        run: npm run cypress:run
+          npx start-server-and-test "npm run start:dev" "http://localhost:3000" "npx cypress run"
