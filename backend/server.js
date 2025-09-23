@@ -62,6 +62,15 @@ app.delete("/tasks/:id", (req, res) => {
   });
 });
 
+//очищение базы
+app.post("/test/clear", (req, res) => {
+  db.run("DELETE FROM tasks", [], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    console.log("Все задачи удалены");
+    res.json({ cleared: true });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
