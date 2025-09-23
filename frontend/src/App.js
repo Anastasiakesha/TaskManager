@@ -60,7 +60,7 @@ function App() {
           <li
             key={task.id}
             data-testid="task-item"
-            className={`flex justify-between items-center bg-white shadow p-2 mb-2 rounded-md`}
+            className={`flex justify-between items-center bg-white shadow p-2 mb-2 rounded-md ${task.completed ? "completed" : ""}`}
           >
           <span
             onClick={() => handleToggleTask(task.id, task.completed)}
