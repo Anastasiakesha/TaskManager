@@ -62,6 +62,18 @@ app.delete("/tasks/:id", (req, res) => {
   });
 });
 
+// 📌 Очистить все задачи (используется только в тестах)
+app.post("/test/clear", (req, res) => {
+  db.run("DELETE FROM tasks", [], (err) => {
+    if (err) {
+      console.error("Ошибка очистки базы:", err.message);
+      return res.status(500).json({ error: err.message });
+    }
+    console.log("Все задачи удалены");
+    res.json({ message: "Все задачи удалены" });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
