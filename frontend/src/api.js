@@ -1,12 +1,14 @@
 const API_URL = "http://localhost:5001";
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 export async function getTasks() {
-  const res = await fetch(`${API_URL}/tasks`);
+  const res = await fetch(`${BACKEND_URL}/tasks`);
   return res.json();
 }
 
 export async function addTask(title) {
-  const res = await fetch(`${API_URL}/tasks`, {
+  const res = await fetch(`${BACKEND_URL}/tasks`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ title }),
@@ -15,7 +17,7 @@ export async function addTask(title) {
 }
 
 export async function updateTask(id, completed) {
-  await fetch(`${API_URL}/tasks/${id}`, {
+  await fetch(`${BACKEND_URL}/tasks/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ completed }),
@@ -23,5 +25,5 @@ export async function updateTask(id, completed) {
 }
 
 export async function deleteTask(id) {
-  await fetch(`${API_URL}/tasks/${id}`, { method: "DELETE" });
+  await fetch(`${BACKEND_URL}/tasks/${id}`, { method: "DELETE" });
 }
