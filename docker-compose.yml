@@ -15,3 +15,15 @@ services:
       - REACT_APP_BACKEND_URL=http://backend:5001
     depends_on:
       - backend
+
+  cypress:
+    image: cypress/included:15.3.0
+    depends_on:
+      - backend
+      - frontend
+    environment:
+      - CYPRESS_baseUrl=http://frontend:80
+    working_dir: /e2e
+    volumes:
+      - ./cypress:/e2e
+    command: npx cypress run
