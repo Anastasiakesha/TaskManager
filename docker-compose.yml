@@ -28,7 +28,8 @@ services:
       - backend
       - frontend
     environment:
-      - CYPRESS_baseUrl=http://frontend:80
+      - CYPRESS_BASE_URL=http://frontend:80
+      - CYPRESS_BACKEND_URL=http://backend:5001
     working_dir: /e2e
     volumes:
       - ./cypress:/e2e
