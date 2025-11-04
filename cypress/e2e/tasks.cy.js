@@ -1,6 +1,6 @@
 describe("Task Manager E2E", () => {
   const backendUrl = Cypress.env("BACKEND_URL") || "http://localhost:5001";
-  const frontendUrl = Cypress.env("FRONTEND_URL") || "http://localhost:3000";
+  const frontendUrl = Cypress.env("BASE_URL") || "http://localhost:3000";
 
   beforeEach(() => {
     cy.request({
