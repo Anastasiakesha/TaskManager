@@ -12,11 +12,11 @@ services:
       - tasknet
 
   frontend:
-    build: ./frontend
+    context: ./frontend
+    args:
+      REACT_APP_BACKEND_URL: http://backend:5001
     ports:
       - "3000:80"
-    environment:
-      - REACT_APP_BACKEND_URL=http://backend:5001
     depends_on:
       - backend
     networks:
