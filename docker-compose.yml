@@ -1,11 +1,15 @@
+networks:
+  tasknet:
+    driver: bridge
+
 services:
   backend:
     build: ./backend
     container_name: taskmanager_backend
     ports:
       - "5001:5001"
-    environment:
-      - NODE_ENV=production
+    networks:
+      - tasknet
 
   frontend:
     build: ./frontend
@@ -15,6 +19,8 @@ services:
       - REACT_APP_BACKEND_URL=http://backend:5001
     depends_on:
       - backend
+    networks:
+      - tasknet
 
   cypress:
     image: cypress/included:15.3.0
@@ -26,4 +32,6 @@ services:
     working_dir: /e2e
     volumes:
       - ./cypress:/e2e
+    networks:
+      - tasknet
     command: npx cypress run
